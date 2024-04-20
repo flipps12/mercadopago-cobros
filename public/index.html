@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="checkout">
+        pay
+    </button>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+    <script>
+        const checkout = document.getElementById('checkout');
+        checkout.addEventListener('click', async ()=>{
+            const result = await fetch('/process_payment', {
+                method: 'POST'
+            });
+            const data = await result.json();
+            console.log(data)
+            window.location.href = data.init_point
+        });
+    </script>
+</body>
+
+</html>
