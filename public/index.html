@@ -8,21 +8,27 @@
 </head>
 
 <body>
-    <button id="checkout">
-        pay
-    </button>
+    <div id="form">
+        <input type="text" id="nickname">
+        <button id="checkout" onclick="checkout(0)">
+            pay
+        </button>
+    </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
-    <script>
-        const checkout = document.getElementById('checkout');
-        checkout.addEventListener('click', async ()=>{
-            const result = await fetch('/process_payment', {
-                method: 'POST'
+    <script> <!-- AÑADIR DATOS DE CUENTA -->
+        const nickname = document.getElementById('nickname')
+        //document.getElementById('form').addEventListener('submit', (event) => event.preventDefault());
+        const checkout = async (id) => {
+            const result = await fetch(`/process_payment/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({ nickname: nickname.value }),
             });
             const data = await result.json();
             console.log(data)
             window.location.href = data.init_point
-        });
+        }
     </script>
 </body>
 

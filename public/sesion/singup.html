@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="form">
+        <label for="">usuario</label>    
+        <input type="text" id="user">
+        <label for="">contraseña</label>        
+        <input type="text" id="password">
+        <button onclick="register()">Registrarse</button>
+    </div>
+    <script>
+        const user = document.getElementById('user')
+        const password = document.getElementById('password')
+        const register = async () => {
+            const result = await fetch(`/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({ user: user.value, password: password.value }),
+            });
+            const data = await result.json();
+            console.log(data)
+        }
+    </script>
+</body>
+</html>
