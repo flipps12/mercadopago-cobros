@@ -9,21 +9,18 @@
     <div id="form">
         <label for="">usuario</label>    
         <input type="text" id="user">
-        <label for="">Nombre de usuario en MC</label>    
-        <input type="text" id="nickname">
         <label for="">contraseña</label>        
         <input type="text" id="password">
-        <button onclick="register()">Registrarse</button>
+        <button onclick="register()">Iniciar sesion</button>
     </div>
     <script>
         const user = document.getElementById('user')
         const password = document.getElementById('password')
-        const nickname = document.getElementById('nickname')
         const register = async () => {
-            const result = await fetch(`/api/register`, {
+            const result = await fetch(`/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify({ user: user.value, password: password.value, nickname: nickname.value }),
+                body: JSON.stringify({ user: user.value, password: password.value }),
             });
             const data = await result.json();
             console.log(data)

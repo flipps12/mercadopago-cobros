@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { createOrder, reciveWebhook } from '../controller/payment.js'
 import path  from  'path';
-import { createAccountPost } from '../database/controller.js';
-
 
 const router = Router();
 const __dirname = path.resolve(path.dirname(''));
@@ -22,11 +20,4 @@ router.get('/failure', (req, res)=>{
 
 router.post('/webhook', reciveWebhook)
 
-// sesiones
-
-router.get('/register', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'public','sesion', 'singup.html'));
-})
-
-router.post('/register', createAccountPost)
 export default router

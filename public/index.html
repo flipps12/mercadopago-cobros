@@ -8,23 +8,37 @@
 </head>
 
 <body>
-    <div id="form">
-        <input type="text" id="nickname">
+    <div>
+        <div id="nickname"></div>
         <button id="checkout" onclick="checkout(0)">
             pay
         </button>
     </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
-
     <script> <!-- AÑADIR DATOS DE CUENTA -->
-        const nickname = document.getElementById('nickname')
+        const nickname = document.getElementById('nickname');
+
+        const protectedApi = async () => {
+            const result = await fetch(`/api/protected`);
+            const data = await result.json();
+            //console.log(data.nickname)
+            if (data.nickname) {
+                nickname.textContent = data.nickname;
+            } else {
+                console.error('Nickname no encontrado en la respuesta');
+            }
+            return data;
+        }
+        protectedApi()
         //document.getElementById('form').addEventListener('submit', (event) => event.preventDefault());
         const checkout = async (id) => {
+            const nicknameValue = await protectedApi()
             const result = await fetch(`/process_payment/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify({ nickname: nickname.value }),
+                body: JSON.stringify({ nickname: await nicknameValue.nickname }),
             });
+            console.log(await nicknameValue.nickname)
             const data = await result.json();
             console.log(data)
             window.location.href = data.init_point

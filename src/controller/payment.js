@@ -12,7 +12,7 @@ export const createOrder = async (req, res) => {
         [
             {
                 id: 0,
-                title: 'Basic server',
+                title: 'basic server',
                 unit_price: 500,
                 quantity: 1,
                 currency_id: 'ARS',
@@ -21,7 +21,7 @@ export const createOrder = async (req, res) => {
         [
             {
                 id: 1,
-                title: 'Advenca server',
+                title: 'advenca server',
                 unit_price: 700,
                 quantity: 1,
                 currency_id: 'ARS',
@@ -43,7 +43,7 @@ export const createOrder = async (req, res) => {
         notification_url: `${NOT}/webhook`,
         external_reference: body.nickname,
     };
-    console.log(bodyPayment.external_reference)
+    //console.log('payment.js', bodyPayment.external_reference, body.nickname)
     const result = await preference.create({ body: bodyPayment }).catch(console.log);
     res.send(result);
 }
