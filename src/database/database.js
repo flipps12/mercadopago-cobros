@@ -74,15 +74,38 @@ export const verifyAccount = async (user, password) => {
   }
 }
 
-export const alterTable = async (ip, email, nickname, identification, plan) => {
+export const alterTable = async (ip, email, nickname, identification, plan) => { // el nmick name ta bug
   try {
+    const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
+    //console.log('checkname', checkName[0])
+    //console.log('checkname', checkName[0].plan)
     console.log(nickname)
     const fechaActual = new Date();
-    const newPlan = {
-        exp: fechaActual.setMonth(fechaActual.getMonth() + 1),
-        plan
+    console.log(fechaActual)
+    var i = 0;
+    var expi = 0;
+    while (checkName[0].plan[i] !== undefined) {
+      //console.log('while', i)
+      //console.log(checkName[0].plan[i])
+      expi = checkName[0].plan[i].exp
+      //newPlan += { i: checkName[0].plan[i] }
+      i++
+
     }
-    console.log(newPlan)
+    if (checkName[0].plan[i] == undefined) {
+      var date = new Date(expi)
+      checkName[0].plan[i] = { exp: fechaActual.setMonth(date.getMonth() + 1), plan }
+      newPlan = checkName[0].plan
+
+    } else if (!checkName.plan) {
+      var newPlan = {
+        0: {
+          exp: fechaActual.setMonth(fechaActual.getMonth() + 1),
+          plan
+        }
+      }
+    }
+
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
 
     console.log(result)

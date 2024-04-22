@@ -8,6 +8,7 @@ export const process_webhook = async (result) => {
     const ip = additional_info.ip_address;
     const email = payer.email
     const dni = payer.identification.number
+    console.log(external_reference)
     //console.log(description, '\n', ip, '\n', email, '\n', external_reference)
     console.log(await alterTable(ip, email, external_reference, dni, description)) // procesar si se vuelve a pagar (que se extienda la exp)
     //guardar en base de datos y mandar por rcon

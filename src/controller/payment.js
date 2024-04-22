@@ -6,7 +6,7 @@ export const createOrder = async (req, res) => {
     const client = new MercadoPagoConfig({ accessToken: TOKEN })
     const payment = new Payment(client);
     const preference = new Preference(client);
-    const { body } = req;
+    var { body } = req;
     console.log(req.params);
     const products = [
         [
@@ -43,6 +43,7 @@ export const createOrder = async (req, res) => {
         notification_url: `${NOT}/webhook`,
         external_reference: body.nickname,
     };
+    console.log('a', bodyPayment.external_reference)
     //console.log('payment.js', bodyPayment.external_reference, body.nickname)
     const result = await preference.create({ body: bodyPayment }).catch(console.log);
     res.send(result);
@@ -63,7 +64,7 @@ export const reciveWebhook = async (req, res) => {
             res.send('error')
             return
         }
-        process_webhook(lastResult)
+        process_webhook(lastResult);
     };
     res.sendStatus(200);
 }
