@@ -8,10 +8,9 @@ export const process_webhook = async (result) => {
     const ip = additional_info.ip_address;
     const email = payer.email
     const dni = payer.identification.number
-    console.log(external_reference)
-    //console.log(description, '\n', ip, '\n', email, '\n', external_reference)
-    console.log(await alterTable(ip, email, external_reference, dni, description)) // procesar si se vuelve a pagar (que se extienda la exp)
-    //guardar en base de datos y mandar por rcon
+    
+    console.log(await alterTable(ip, email, external_reference, dni, description))
+    //guardar en base de datos (listo) y mandar por rcon
 }
 
 // cuentas 
@@ -33,8 +32,12 @@ export const verifyAccountPost = async (req, res) => {
     const { user, password } = req.body;
     if ((!regex.test(password) && !regex.test(user)) && (user.length >= 4 && password.length >= 4)) {
         const result = await verifyAccount(user, password);
-        console.log(result)
-        if (!result.data) res.send({ status: 'error2'})
+        console.log(!result.status)
+
+        if (!result.data) {
+            res.send({ status: result.status})
+            return
+        }
         const token = jwt.sign({ id: result.data.id, usuario: result.data.usuario, nickname: result.data.nickname }, JWT, { expiresIn: '400d' });
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 30 * 24 * 60 * 60 * 100000 });
         res.send(await result)

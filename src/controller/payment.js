@@ -43,13 +43,12 @@ export const createOrder = async (req, res) => {
         notification_url: `${NOT}/webhook`,
         external_reference: body.nickname,
     };
-    console.log('a', bodyPayment.external_reference)
     //console.log('payment.js', bodyPayment.external_reference, body.nickname)
     const result = await preference.create({ body: bodyPayment }).catch(console.log);
     res.send(result);
 }
 
-export const reciveWebhook = async (req, res) => {
+export const reciveWebhookDeprecated = async (req, res) => {
     const client = new MercadoPagoConfig({ accessToken: TOKEN })
     const payment = new Payment(client);
     const paymentQuery = req.query;
@@ -65,6 +64,31 @@ export const reciveWebhook = async (req, res) => {
             return
         }
         process_webhook(lastResult);
+        // console.log(paymentQuery)
+        console.log(paymentQuery)
+        res.sendStatus(204)
     };
-    res.sendStatus(200);
+    //res.sendStatus(200);
+}
+export const reciveWebhook = async (req, res) => {
+    const client = new MercadoPagoConfig({ accessToken: TOKEN })
+    const payment = new Payment(client);
+    const paymentQuery = req.query;
+    try {
+        const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentQuery.id}`, {
+            headers: {
+                'Authorization': `Bearer ${client.accessToken}`
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            process_webhook(data)
+        }
+
+        res.sendStatus(200)
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
 }

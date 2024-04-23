@@ -84,20 +84,24 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     console.log(fechaActual)
     var i = 0;
     var expi = 0;
-    while (checkName[0].plan[i] !== undefined) {
-      //console.log('while', i)
-      //console.log(checkName[0].plan[i])
-      expi = checkName[0].plan[i].exp
-      //newPlan += { i: checkName[0].plan[i] }
-      i++
+    console.log(checkName[0].plan)
+    if (checkName[0].plan !== null) {
+      while (checkName[0].plan[i] !== undefined) {
+        console.log('while', i, checkName)
+        console.log(checkName[0].plan[i])
+        expi = checkName[0].plan[i].exp
+        //newPlan += { i: checkName[0].plan[i] }
+        i++
 
-    }
-    if (checkName[0].plan[i] == undefined) {
-      var date = new Date(expi)
-      checkName[0].plan[i] = { exp: fechaActual.setMonth(date.getMonth() + 1), plan }
-      newPlan = checkName[0].plan
+      }
+      if (checkName[0].plan[i] == undefined && i >= 1) {
+        console.log(i)
+        var date = new Date(expi)
+        checkName[0].plan[i] = { exp: fechaActual.setMonth(date.getMonth() + 1), plan }
+        newPlan = checkName[0].plan
 
-    } else if (!checkName.plan) {
+      }
+    } else {
       var newPlan = {
         0: {
           exp: fechaActual.setMonth(fechaActual.getMonth() + 1),
@@ -105,6 +109,7 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
         }
       }
     }
+
 
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
 
