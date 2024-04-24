@@ -7,7 +7,6 @@ export const createOrder = async (req, res) => {
     const payment = new Payment(client);
     const preference = new Preference(client);
     var { body } = req;
-    console.log(req.params);
     const products = [
         [
             {
@@ -48,28 +47,28 @@ export const createOrder = async (req, res) => {
     res.send(result);
 }
 
-export const reciveWebhookDeprecated = async (req, res) => {
-    const client = new MercadoPagoConfig({ accessToken: TOKEN })
-    const payment = new Payment(client);
-    const paymentQuery = req.query;
-    if (paymentQuery.type === 'payment') {
-        const result = await payment.search({
-            qs: {
-                id: paymentQuery['data.id']
-            }
-        });
-        const lastResult = result.results[result.results.length - 1];
-        if (lastResult.status !== 'approved') {
-            res.send('error')
-            return
-        }
-        process_webhook(lastResult);
-        // console.log(paymentQuery)
-        console.log(paymentQuery)
-        res.sendStatus(204)
-    };
-    //res.sendStatus(200);
-}
+// export const reciveWebhookDeprecated = async (req, res) => {
+//     const client = new MercadoPagoConfig({ accessToken: TOKEN })
+//     const payment = new Payment(client);
+//     const paymentQuery = req.query;
+//     if (paymentQuery.type === 'payment') {
+//         const result = await payment.search({
+//             qs: {
+//                 id: paymentQuery['data.id']
+//             }
+//         });
+//         const lastResult = result.results[result.results.length - 1];
+//         if (lastResult.status !== 'approved') {
+//             res.send('error')
+//             return
+//         }
+//         process_webhook(lastResult);
+//         // console.log(paymentQuery)
+//         console.log(paymentQuery)
+//         res.sendStatus(204)
+//     };
+//     //res.sendStatus(200);
+// }
 export const reciveWebhook = async (req, res) => {
     const client = new MercadoPagoConfig({ accessToken: TOKEN })
     const payment = new Payment(client);
@@ -83,7 +82,10 @@ export const reciveWebhook = async (req, res) => {
 
         if (response.ok) {
             const data = await response.json();
-            process_webhook(data)
+            if (data.status === 'approved') {
+                process_webhook(data)
+                console.log(data.status)
+            }
         }
 
         res.sendStatus(200)

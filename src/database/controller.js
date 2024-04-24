@@ -1,6 +1,8 @@
 import { createAccount, verifyAccount, alterTable } from "./database.js";
 import jwt from 'jsonwebtoken';
 import { JWT } from "../config.js";
+import { refreshWhiteList } from "../rcon/connection.js";
+
 
 export const process_webhook = async (result) => {
     //console.log(result)
@@ -10,12 +12,11 @@ export const process_webhook = async (result) => {
     const dni = payer.identification.number
     
     console.log(await alterTable(ip, email, external_reference, dni, description))
-    //guardar en base de datos (listo) y mandar por rcon
+    refreshWhiteList(external_reference)
 }
 
 // cuentas 
 export const createAccountPost = async (req, res) => {
-    console.log(req.body)
     const regex = /[^a-zA-Z0-9]/;
     const { user, password, nickname } = req.body;
     if ((!regex.test(password) && !regex.test(user)) && (user.length >= 4 && password.length >= 4) && nickname.length >= 2) {
@@ -27,12 +28,10 @@ export const createAccountPost = async (req, res) => {
 };
 
 export const verifyAccountPost = async (req, res) => {
-    console.log(req.body)
     const regex = /[^a-zA-Z0-9]/;
     const { user, password } = req.body;
     if ((!regex.test(password) && !regex.test(user)) && (user.length >= 4 && password.length >= 4)) {
         const result = await verifyAccount(user, password);
-        console.log(!result.status)
 
         if (!result.data) {
             res.send({ status: result.status})

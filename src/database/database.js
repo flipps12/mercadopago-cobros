@@ -41,10 +41,6 @@ const sql = postgres({
   },
 });
 
-export const getPgVersion = async () => {
-  const result = await sql`select version()`;
-  console.log(result);
-};
 
 export const createAccount = async (user, password, nickname) => {
   try {
@@ -74,28 +70,21 @@ export const verifyAccount = async (user, password) => {
   }
 }
 
-export const alterTable = async (ip, email, nickname, identification, plan) => { // el nmick name ta bug
+export const alterTable = async (ip, email, nickname, identification, plan) => { 
   try {
     const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
-    //console.log('checkname', checkName[0])
-    //console.log('checkname', checkName[0].plan)
-    console.log(nickname)
+
     const fechaActual = new Date();
-    console.log(fechaActual)
     var i = 0;
     var expi = 0;
-    console.log(checkName[0].plan)
     if (checkName[0].plan !== null) {
       while (checkName[0].plan[i] !== undefined) {
-        console.log('while', i, checkName)
-        console.log(checkName[0].plan[i])
         expi = checkName[0].plan[i].exp
         //newPlan += { i: checkName[0].plan[i] }
         i++
 
       }
       if (checkName[0].plan[i] == undefined && i >= 1) {
-        console.log(i)
         var date = new Date(expi)
         checkName[0].plan[i] = { exp: fechaActual.setMonth(date.getMonth() + 1), plan }
         newPlan = checkName[0].plan
@@ -113,12 +102,9 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
 
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
 
-    console.log(result)
     return { status: true };
   } catch (error) {
     console.log(error)
     return { status: 'error' }
   }
 };
-
-//console.log(await verifyAccount('user1', 'password1'))
