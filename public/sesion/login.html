@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./sesion/styleSingup.css">
+    <script src="https://kit.fontawesome.com/3af50be71a.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div id="form">
-        <label for="">usuario</label>    
-        <input type="text" id="user">
-        <label for="">contraseña</label>        
-        <input type="text" id="password">
-        <button onclick="register()">Iniciar sesion</button>
+    <nav>
+        <a id="tituloNav" href="/">hola</a>
+        <ul>
+            <a href="/payment"><i class="fa-solid fa-link"></i> Comprar</a>
+            <a href="/login"><i class="fa-solid fa-link"></i> Login</a>
+        </ul>
+    </nav>
+    <div id="formContent">
+        <form id="form">
+            <h2 id="formTitle">Iniciar Sesion</h2>
+            <label for="">usuario</label>
+            <input type="text" id="user">
+            <label for="">contraseña</label>
+            <input type="text" id="password">
+            <input id="button" type="submit" value="Enviar">
+        </form>
     </div>
     <script>
         const user = document.getElementById('user')
@@ -25,6 +39,11 @@
             const data = await result.json();
             console.log(data)
         }
+        document.getElementById('form').addEventListener('submit', (event) => {
+            event.preventDefault()
+            register()
+        })
     </script>
 </body>
+
 </html>

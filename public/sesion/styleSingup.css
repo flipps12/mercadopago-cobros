@@ -1,6 +1,13 @@
+:root {
+    --background: #060712;
+    --primary: #9093d9;
+    --secondary: #7c2c82;
+    --accent: #c961b4;
+}
+
 body {
     margin: 0;
-    background-color: #100e12;
+    background-color: var(--background);
     font-family: sans-serif;
     color: #fff;
 }
@@ -22,6 +29,13 @@ ul {
 a {
     color: #fff;
     font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .5s ease;
+}
+
+a:hover {
+    background-color: #291234;
 }
 
 #tituloNav {
@@ -29,15 +43,24 @@ a {
     text-align: start;
     margin: 0;
     font-size: 30px;
-    background: linear-gradient(120deg, #99a0df, #ab4dc7);
+    background: linear-gradient(120deg, var(--primary), var(--accent));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: all .3s ease-out;
+    font-weight: 800;
 }
 
-h2 {
-    text-align: center;
+#tituloNav:hover {
+    margin-left: 10px;
+    text-decoration: overline;
 }
+
+#formTitle {
+    text-align: center;
+    font-size: 30px;
+}
+
 
 form {
     display: flex;
@@ -47,27 +70,37 @@ form {
     width: 24%;
     padding-block: 3%;
     padding-inline: 2.5%;
-    border: 2px #fff solid;
+    background-color: #0D0E1C;
     border-radius: 30px;
 }
 
 input {
-    background-color: #100e12;
-    border: 2px solid #fff;
+    background-color: #291234;
+    border: none;
     border-radius: 10px;
     color: #fff;
-    margin-top: 15px;
+    margin-top: 10px;
     height: 30px;
     outline: none;
+    font-size: 18px;
 }
 
 label {
     color: #fff;
     margin-top: 20px;
+    margin-left: 5px;
 }
 
 #button {
     height: 35px;
+    background-color: var(--primary);
+    border: none;
+    color: #000;
+    transition: all .3s ease-out;
+}
+
+#button:hover {
+    box-shadow: 3px 3px 3px 3px 5px var(--primary);
 }
 
 #formContent {
@@ -75,4 +108,24 @@ label {
     justify-content: center;
     height: 85vh;
     align-items: center;
+}
+
+@media (max-width: 1000px) {
+    form {
+        width: 54%;
+        padding-block: 4%;
+        padding-inline: 3.5%;
+    }
+
+    label {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1000px) {
+    form {
+        width: 74%;
+        padding-block: 10%;
+        padding-inline: 6.5%;
+    }
 }
