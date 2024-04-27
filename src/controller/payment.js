@@ -54,6 +54,6 @@ export const reciveWebhook = async (req, res) => {
     };
 };
 
-export const viewPlan = (req, res) => {
+export const viewPlanes = (req, res) => {
     res.send(products);
 };

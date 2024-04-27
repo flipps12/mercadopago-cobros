@@ -2,7 +2,9 @@ import postgres from 'postgres';
 import bcrypt from 'bcryptjs';
 import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } from '../config.js';
 
-// encriptar
+// !comprobar seguridad
+
+// ?encriptar
 const encrypt = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
@@ -15,7 +17,7 @@ const encrypt = (password) => {
   });
 };
 
-// comparar contraseñas
+// ?comparar contraseñas
 const compare = (password, encryptedPassword) => {
   return new Promise((resoleve, reject) => {
     bcrypt.compare(password, encryptedPassword, function (err, isMatch) {
@@ -44,7 +46,7 @@ const sql = postgres({
 });
 
 
-export const createAccount = async (user, password, nickname) => { // crear cuenta
+export const createAccount = async (user, password, nickname) => { // ?crear cuenta
   try {
     const checkName = await sql`SELECT COUNT(*) as count FROM usuarios WHERE usuario = ${user};`;
 
@@ -59,7 +61,7 @@ export const createAccount = async (user, password, nickname) => { // crear cuen
   }
 };
 
-export const verifyAccount = async (user, password) => { // verificar credenciales
+export const verifyAccount = async (user, password) => { // ?verificar credenciales
   try {
     const checkName = await sql`SELECT * FROM usuarios WHERE usuario = ${user};`;
     if (checkName[0] == undefined) return { status: 'user undefined' }
@@ -72,7 +74,7 @@ export const verifyAccount = async (user, password) => { // verificar credencial
   }
 }
 
-export const alterTable = async (ip, email, nickname, identification, plan) => { // modificar plan
+export const alterTable = async (ip, email, nickname, identification, plan) => { // ?modificar plan
   try {
     const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
 
@@ -110,3 +112,14 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     return { status: 'error' }
   }
 };
+
+export const viewPlanDB = async (nickname) => { // ?mostrar planes comprados
+  try {
+    if (nickname === '') return
+    const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
+    return checkName
+  } catch (error) {
+    console.log(error)
+    return { status: 'error' }
+  }
+}

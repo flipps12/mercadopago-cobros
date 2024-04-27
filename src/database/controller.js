@@ -1,4 +1,4 @@
-import { createAccount, verifyAccount, alterTable } from "./database.js";
+import { createAccount, verifyAccount, alterTable, viewPlanDB } from "./database.js";
 import jwt from 'jsonwebtoken';
 import { JWT } from "../config.js";
 import { refreshWhiteList } from "../rcon/connection.js";
@@ -44,6 +44,12 @@ export const verifyAccountPost = async (req, res) => {
         res.send({ status: 'string error' })
     }
 }
+
+export const viewPlan = async (req, res) => {
+    const { nickname } = req.body;
+    console.log(nickname);
+    res.send({ data: await viewPlanDB(nickname)});
+};
 
 export const apiProtected = (req, res) => {
     res.send(req.user);

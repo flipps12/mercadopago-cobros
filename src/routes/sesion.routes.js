@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import path  from  'path';
-import { createAccountPost, verifyAccountPost, apiProtected } from '../database/controller.js';
+import { createAccountPost, verifyAccountPost, apiProtected, viewPlan } from '../database/controller.js';
 import jwt from 'jsonwebtoken';
 import { JWT } from "../config.js";
 
@@ -39,5 +39,7 @@ router.post('/api/register', createAccountPost)
 router.post('/api/login', verifyAccountPost)
 
 router.get('/api/protected', authMiddleware, apiProtected)
+
+router.post('/api/compras', viewPlan); // ?mostrar planes comprados
 
 export default router

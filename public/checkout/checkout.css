@@ -65,6 +65,7 @@ a:hover {
     gap: 10px;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 .payContainer {
@@ -72,8 +73,8 @@ a:hover {
     flex-direction: column;
     border-radius: 20px;
     background-color: #0D0E1C;
-    height: 18vh;
-    width: 18vh;
+    height: 20vh;
+    width: 20vh;
     padding: 15px;
     align-items: center;
 }
@@ -91,8 +92,29 @@ a:hover {
     margin-top: 5px;
     border: none;
     border-radius: 10px;
+    transition: all .3s;
 }
 
-.compras {
+.payButton:hover {
+    background-color: var(--secondary);
+}
+
+#compras {
     flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.compraContainer {
+    border-radius: 20px;
+    background-color: #0D0E1C;
+    padding: 15px;
+    display: flex;
+    width: 150px;
+    height: 150px;
+    flex-direction: column;
 }
