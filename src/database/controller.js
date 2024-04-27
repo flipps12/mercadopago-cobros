@@ -8,11 +8,11 @@ export const process_webhook = async (result) => {
     //console.log(result)
     const { description, additional_info, external_reference, payer } = result
     const ip = additional_info.ip_address;
-    const email = payer.email
-    const dni = payer.identification.number
+    const email = payer.email;
+    const dni = payer.identification.number;
     
-    console.log(await alterTable(ip, email, external_reference, dni, description))
-    refreshWhiteList(external_reference)
+    console.log(await alterTable(ip, email, external_reference, dni, description));
+    refreshWhiteList(external_reference);
 }
 
 // cuentas 

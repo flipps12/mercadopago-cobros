@@ -2,7 +2,7 @@ import postgres from 'postgres';
 import bcrypt from 'bcryptjs';
 import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } from '../config.js';
 
-
+// encriptar
 const encrypt = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
@@ -15,6 +15,7 @@ const encrypt = (password) => {
   });
 };
 
+// comparar contraseñas
 const compare = (password, encryptedPassword) => {
   return new Promise((resoleve, reject) => {
     bcrypt.compare(password, encryptedPassword, function (err, isMatch) {
@@ -29,6 +30,7 @@ const compare = (password, encryptedPassword) => {
   })
 }
 
+// config
 const sql = postgres({
   host: PGHOST,
   database: PGDATABASE,
@@ -42,7 +44,7 @@ const sql = postgres({
 });
 
 
-export const createAccount = async (user, password, nickname) => {
+export const createAccount = async (user, password, nickname) => { // crear cuenta
   try {
     const checkName = await sql`SELECT COUNT(*) as count FROM usuarios WHERE usuario = ${user};`;
 
@@ -57,7 +59,7 @@ export const createAccount = async (user, password, nickname) => {
   }
 };
 
-export const verifyAccount = async (user, password) => {
+export const verifyAccount = async (user, password) => { // verificar credenciales
   try {
     const checkName = await sql`SELECT * FROM usuarios WHERE usuario = ${user};`;
     if (checkName[0] == undefined) return { status: 'user undefined' }
@@ -70,7 +72,7 @@ export const verifyAccount = async (user, password) => {
   }
 }
 
-export const alterTable = async (ip, email, nickname, identification, plan) => { 
+export const alterTable = async (ip, email, nickname, identification, plan) => { // modificar plan
   try {
     const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
 

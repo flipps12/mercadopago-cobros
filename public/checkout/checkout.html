@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./checkout/checkout.css">
+</head>
+
+<body>
+    <!-- Agregar compras -->
+    <nav>
+        <a id="tituloNav" href="/">hola</a>
+        <ul>
+            <a href="/payment"><i class="fa-solid fa-link"></i> Comprar</a>
+            <a><i class="fa-solid fa-link"></i>
+                <div id="nickname"></div>
+            </a>
+        </ul>
+    </nav>
+    <div id="planContainer"></div>
+    <div id="compras"></div>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script> <!-- AÑADIR DATOS DE CUENTA -->
+        const nickname = document.getElementById('nickname');
+        const planContainer = document.getElementById('planContainer');
+
+        const protected = async () => {
+            const resultProtected = await fetch(`/api/protected`);
+            const data = await resultProtected.json();
+            //console.log(data.nickname)
+            if (data.nickname) {
+                nickname.textContent = data.nickname;
+            } else {
+                window.location = '/'
+                console.error('Nickname no encontrado en la respuesta');
+            };
+            return data;
+        };
+
+        const products = async () => {
+            const resultProducts = await fetch(`/api/products`);
+            const data = await resultProducts.json();
+            console.log(data)
+            for (i in data) {
+                console.log(data[i][0])
+                let planSubContainer = document.createElement('div');
+                planSubContainer.setAttribute('class', 'payContainer');
+                let button = document.createElement('button');
+                let precio = document.createElement('div');
+                let name = document.createElement('div');
+                button.textContent = 'Comprar';
+                button.setAttribute('onclick', `checkout(${data[i][0].id})`);
+                button.setAttribute('class', 'payButton');
+                name.textContent = data[i][0].title;
+                name.setAttribute('class', 'payTitle');
+                precio.textContent = `${data[i][0].unit_price} ${data[i][0].currency_id}`;
+                precio.setAttribute('class', 'payPrecio');
+                planSubContainer.appendChild(name);
+                planSubContainer.appendChild(precio);
+                planSubContainer.appendChild(button);
+                planContainer.appendChild(planSubContainer);
+            };
+            return data;
+        };
+
+
+        const checkout = async (id) => {
+            const nicknameValue = await protected()
+            const result = await fetch(`/process_payment/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({ nickname: await nicknameValue.nickname }),
+            });
+            console.log(await nicknameValue.nickname)
+            const data = await result.json();
+            console.log(data)
+            window.location.href = data.init_point
+        }
+
+        protected();
+        products();
+    </script>
+</body>
+
+</html>

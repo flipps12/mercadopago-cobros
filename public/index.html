@@ -5,14 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/3af50be71a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <div>
-        <div id="nickname"></div>
-        <button id="checkout" onclick="checkout(0)">
-            pay
-        </button>
+    <nav>
+        <a id="tituloNav" href="/">hola</a>
+        <ul>
+            <a href="/payment"><i class="fa-solid fa-link"></i> Comprar</a>
+            <a href="/login"><i class="fa-solid fa-link"></i> Login</a>
+        </ul>
+    </nav>
+    <div id="nickname"></div>
+    <div id="containerPlanes">
+        <div class="plan1 planes">
+            <h4>Proximamente</h4>
+            <p class="data">-------<br>------</p>
+            <div class="comprarContainer">
+                <div class="precio">--- ARS</div>
+                <button class="comprar" onclick="//checkout(1)">Comprar</button>
+            </div>
+        </div>
+        <div class="plan2 planes">
+            <h4>Plan Basico</h4>
+            <p class="data">Plan mensual <br>Servidor Anarquico</p>
+            <div class="comprarContainer">
+                <div class="precio">500 ARS</div>
+                <button class="comprar" onclick="checkout(0)">Comprar</button>
+            </div>
+        </div>
+        <div class="plan3 planes">
+            <h4>Proximamente</h4>
+            <p class="data">-------<br>------</p>
+            <div class="comprarContainer">
+                <div class="precio">--- ARS</div>
+                <button class="comprar" onclick="//checkout(2)">Comprar</button>
+            </div>
+        </div>
     </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script> <!-- AÑADIR DATOS DE CUENTA -->

@@ -1,0 +1,121 @@
+:root {
+    --background: #060712;
+    --primary: #9093d9;
+    --secondary: #7c2c82;
+    --accent: #c961b4;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background);
+    color: #fff;
+    font-family: sans-serif;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    padding-inline: 20px;
+    align-items: center;
+    border-bottom: 2px solid #fff;
+    height: 10vh;
+}
+
+ul {
+    display: flex;
+    gap: 22px;
+}
+
+a {
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .5s ease;
+}
+
+a:hover {
+    background-color: #291234;
+}
+
+#tituloNav {
+    flex: 1;
+    text-align: start;
+    margin: 0;
+    font-size: 30px;
+    background: linear-gradient(120deg, var(--primary), var(--accent));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all .3s ease-out;
+    font-weight: 800;
+}
+
+#tituloNav:hover {
+    margin-left: 10px;
+    text-decoration: overline;
+}
+
+#containerPlanes {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.planes {
+    display: flex;
+    flex-direction: column;
+    width: 17vw;
+    height: 70vh;
+    background-color: #0D0E1C;
+    border-radius: 30px;
+}
+
+.plan2 {
+    height: 80vh;
+}
+
+h4 {
+    border-bottom: 2px #C961B4 solid;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding-block: 15px;
+}
+
+.data {
+    flex: 1;
+    padding-block: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    padding-inline: 10px;
+}
+
+.comprarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-block: 15px;
+    flex-direction: column;
+}
+
+.precio {
+    font-size: 20px;
+}
+
+.comprar {
+    height: 35px;
+    background-color: var(--primary);
+    border: none;
+    color: #000;
+    font-size: 18px;
+    margin-top: 5px;
+    width: 50%;
+    border: none;
+    border-radius: 10px;
+}
