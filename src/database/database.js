@@ -48,7 +48,7 @@ const sql = postgres({
 
 export const createAccount = async (user, password, nickname) => { // ?crear cuenta
   try {
-    const checkName = await sql`SELECT COUNT(*) as count FROM usuarios WHERE usuario = ${user};`;
+    const checkName = await sql`SELECT COUNT(*) as count FROM usuarios WHERE usuario = ${user} OR nickname = ${nickname};`;
 
     if (checkName[0].count > 0) {
       return { status: 'registered' }; // El usuario ya existe
@@ -106,10 +106,10 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
 
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
 
-    return { status: true };
+    return true;
   } catch (error) {
     console.log(error)
-    return { status: 'error' }
+    return false;
   }
 };
 
@@ -118,6 +118,24 @@ export const viewPlanDB = async (nickname) => { // ?mostrar planes comprados
     if (nickname === '') return
     const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
     return checkName
+  } catch (error) {
+    console.log(error)
+    return { status: 'error' };
+  }
+}
+
+export const viewPlansDB = async () => { // ?mostrar planes comprados
+  try {
+    const result = await sql`SELECT * FROM usuarios`;
+    var plan, id = 0;
+    var resultado = [];
+    for (plan in result) {
+      if (result[plan].plan !== null) {
+        resultado[id] = result[plan]
+        id++
+      }
+    }
+    return resultado
   } catch (error) {
     console.log(error)
     return { status: 'error' }

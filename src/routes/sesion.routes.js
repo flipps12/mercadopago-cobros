@@ -30,9 +30,9 @@ router.get('/login', (req, res)=>{
     res.sendFile(path.join(__dirname, 'public','sesion', 'login.html'));
 })
 
-router.get('/ruta-protegida', authMiddleware, (req, res) => {
-    res.send('Acceso concedido a la información protegida.');
-});
+// router.get('/ruta-protegida', authMiddleware, (req, res) => {
+//     res.send('Acceso concedido a la información protegida.'); //! deprecated
+// });
 
 router.post('/api/register', createAccountPost)
 

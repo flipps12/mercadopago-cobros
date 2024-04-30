@@ -8,6 +8,10 @@ export const NOT = process.env.NOT;
 export const JWT = process.env.JWT;
 export const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
 
+export const hostMC = process.env.ip;
+export const passwordMC = process.env.password;
+export const portMC = 25575;
+
 export const products = [
     [
         {

@@ -38,12 +38,12 @@ export const reciveWebhook = async (req, res) => {
                 'Authorization': `Bearer ${client.accessToken}`
             }
         });
-
+        
         if (response.ok) {
             const data = await response.json();
             if (data.status === 'approved') {
                 process_webhook(data);
-                console.log(data.status);
+                console.log(data.status, data.external_reference);
             };
         };
 
