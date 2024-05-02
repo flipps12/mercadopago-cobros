@@ -70,7 +70,7 @@ export const verifyAccount = async (user, password) => { // ?verificar credencia
     return { status: true, data: checkName[0] };
   } catch (error) {
     console.log(error)
-    return { status: 'error' }
+    return { status: 'error', data: error }
   }
 }
 
