@@ -1,7 +1,7 @@
 import { Rcon } from "rcon-client";
 import { portMC, hostMC, passwordMC } from "../config.js";
 
-const ejecutar = async (comand) => { // ?Ejecutar comando por rcon
+export const ejecutar = async (comand) => { // ?Ejecutar comando por rcon
     try {
         const client = await Rcon.connect({
             host: hostMC,

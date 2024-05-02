@@ -1,32 +1,42 @@
 import { createAccount, verifyAccount, alterTable, viewPlanDB, viewPlansDB } from "./database.js";
 import jwt from 'jsonwebtoken';
 import { JWT } from "../config.js";
-import { viewWhiteList, addUserWhiteList, deleteUserWhiteList } from "../rcon/connection.js";
-
+import { ejecutar, viewWhiteList, addUserWhiteList, deleteUserWhiteList } from "../rcon/connection.js";
 
 const verifyAllAccounts = async () => {
-    const fecha = new Date();
-    console.log(fecha)
-    const planes = await viewPlansDB();
-    var plan, plan2 = 0;
-    for (plan in planes) {
-        var ult = Object.keys(planes[plan].plan).length - 1
-        console.log(planes[plan].plan[ult]);
-        var nickname = planes[plan].nickname;
-        var fechaExp = new Date(planes[plan].plan[ult].exp);
-        var resultPlan = planes[plan].plan[ult].plan;
-        if (fecha < fechaExp) {
-            addUserWhiteList(nickname)
-            // ! para proxima // addUserWhiteList(nickname, resultPlan)
-            console.log(resultPlan)
-        } else {
-            deleteUserWhiteList(nickname)
-        }
+    try {
+        ejecutar('say Actulizando Whitelist...');
+        console.log('verificando whitelist')
+        const fecha = new Date();
+        var users = [];
+        const whitelistUsersResult = await viewWhiteList();
+        const whitelistUsers = whitelistUsersResult.split(': ')[1].split(', ');
+        const planes = await viewPlansDB();
+        var plan, plan2 = 0;
+        for (plan in planes) {
+            var ult = Object.keys(planes[plan].plan).length - 1
+            console.log(planes[plan].plan[ult]);
+            var nickname = planes[plan].nickname;
+            var fechaExp = new Date(planes[plan].plan[ult].exp);
+            var resultPlan = planes[plan].plan[ult].plan;
+            if (fecha < fechaExp) {
+                users[plan] = nickname;
+                // ! para proxima // addUserWhiteList(nickname, resultPlan)
+                console.log(resultPlan);
+            } else {
+                deleteUserWhiteList(nickname);
+            }
+        };
+        var fueraDeWhitelist = users.filter(element => !whitelistUsers.includes(element)); // ? Usuarios con plan pagado pero fuera de whitelist
+        var dentroDeWhitelist = whitelistUsers.filter(element => !users.includes(element)); // ! Estos usuarios, no pagaron pero esta dentro de la whitelist. (utilizando bugs)
+        fueraDeWhitelist.some(element => addUserWhiteList(element));
+        dentroDeWhitelist.some(element => deleteUserWhiteList(element));
+        console.log(fueraDeWhitelist, dentroDeWhitelist)
+    } catch (error) {
+        ejecutar('say ERROR Actulizando Whitelist, alertar al staff.');
+        console.error(error);
     };
-
-    //console.log(planes);
 };
-verifyAllAccounts() //TODO seguir con la funcionalidad
 
 // ? exports
 
@@ -90,3 +100,7 @@ export const viewPlan = async (req, res) => {
 export const apiProtected = (req, res) => {
     res.send(req.user);
 };
+
+
+
+setInterval(verifyAllAccounts, 4 * 60 * 60 * 1000); // Verificar Whitelsit cada 4 horas
