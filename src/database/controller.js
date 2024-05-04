@@ -11,6 +11,7 @@ const verifyAllAccounts = async () => {
         var users = [];
         const whitelistUsersResult = await viewWhiteList();
         const whitelistUsers = whitelistUsersResult.split(': ')[1].split(', ');
+        ejecutar(`say devmode ${whitelistUsersResult}`)
         const planes = await viewPlansDB();
         var plan, plan2 = 0;
         for (plan in planes) {
