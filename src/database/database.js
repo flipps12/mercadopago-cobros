@@ -111,6 +111,7 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     return true;
   } catch (error) {
     console.log(error)
+    ejecutar(`say devmode ${error}`)
     return false;
   }
 };
