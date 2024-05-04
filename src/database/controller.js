@@ -33,7 +33,7 @@ const verifyAllAccounts = async () => {
         dentroDeWhitelist.some(element => deleteUserWhiteList(element));
         console.log(fueraDeWhitelist, dentroDeWhitelist)
     } catch (error) {
-        ejecutar('say ERROR Actulizando Whitelist, alertar al staff.', error);
+        ejecutar(`say ERROR Actulizando Whitelist, alertar al staff. ${error}`);
         console.error(error);
     };
 };
