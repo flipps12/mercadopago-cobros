@@ -1,6 +1,7 @@
 import { MercadoPagoConfig, Payment, Preference } from 'mercadopago';
-import { TOKEN, HOST, NOT, products } from '../config.js';
+import { TOKEN, HOST, NOT, products, devMode } from '../config.js';
 import { process_webhook } from '../database/controller.js';
+import { ejecutar } from '../rcon/connection.js';
 
 export const createOrder = async (req, res) => {
     const client = new MercadoPagoConfig({ accessToken: TOKEN })
@@ -25,6 +26,7 @@ export const createOrder = async (req, res) => {
     };
     //console.log('payment.js', bodyPayment.external_reference, body.nickname)
     const result = await preference.create({ body: bodyPayment }).catch(console.log);
+    if (devMode) ejecutar('say DevMode: createOder()')
     res.send(result);
 };
 
@@ -46,6 +48,8 @@ export const reciveWebhook = async (req, res) => {
                 console.log(data.status, data.external_reference);
             };
         };
+
+        if (devMode) ejecutar('say DevMode: reciveWebhook()')
 
         res.sendStatus(200);
     } catch (error) {

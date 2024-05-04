@@ -1,6 +1,6 @@
 import { createAccount, verifyAccount, alterTable, viewPlanDB, viewPlansDB } from "./database.js";
 import jwt from 'jsonwebtoken';
-import { JWT } from "../config.js";
+import { JWT, devMode } from "../config.js";
 import { ejecutar, viewWhiteList, addUserWhiteList, deleteUserWhiteList } from "../rcon/connection.js";
 
 const verifyAllAccounts = async () => {
@@ -45,14 +45,14 @@ export const getWhitelist = async (req, res) => { // ?mostrar en la web los usua
 }
 
 export const process_webhook = async (result) => {
-    console.log('poruebas')
     const { description, additional_info, external_reference, payer } = result
     const ip = additional_info.ip_address;
     const email = payer.email;
     const dni = payer.identification.number;
 
     const status = alterTable(ip, email, external_reference, dni, description);
-    console.log(await status, external_reference)
+    console.log(await status)
+    if (devMode) ejecutar('say DevMode: process_webhook()')
     if (await status) {
         const addWhitelistResult = addUserWhiteList(external_reference);
         console.log(await addWhitelistResult);
@@ -104,3 +104,4 @@ export const apiProtected = (req, res) => {
 
 
 setInterval(verifyAllAccounts, 4 * 60 * 60 * 1000); // Verificar Whitelsit cada 4 horas
+verifyAllAccounts();// 

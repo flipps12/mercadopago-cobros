@@ -1,6 +1,7 @@
 import postgres from 'postgres';
 import bcrypt from 'bcryptjs';
-import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } from '../config.js';
+import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID, devMode } from '../config.js';
+import { ejecutar } from '../rcon/connection.js';
 
 // !comprobar seguridad
 
@@ -102,6 +103,7 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
         }
       }
     }
+    if (devMode) ejecutar('say DevMode: altertable()')
 
 
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
