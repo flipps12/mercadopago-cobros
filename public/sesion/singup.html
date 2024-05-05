@@ -26,6 +26,7 @@
             <input type="text" id="nickname">
             <label for="password">Contraseña</label>
             <input type="text" id="password">
+            <span id="span"></span>
             <input id="button" type="submit" value="Enviar">
         </form>
     </div>
@@ -41,6 +42,10 @@
             });
             const data = await result.json();
             console.log(data)
+            if (data.status == 'string error') span.textContent = '4 o mas letras y numeros.'
+            else if (data.status == 'registered') span.textContent = 'El usuario o el nickname ya existe, prueba con otro.'
+            else if (data.status === true) span.textContent = 'Ya estas registrado!'
+            else span.textContent = 'Ups... hubo un error, notificalo.'
         }
         document.getElementById('form').addEventListener('submit', (event) => {
             event.preventDefault()

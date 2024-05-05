@@ -24,12 +24,15 @@
             <input type="text" id="user">
             <label for="">contraseña</label>
             <input type="text" id="password">
+            <span id="span"></span>
             <input id="button" type="submit" value="Enviar">
         </form>
     </div>
     <script>
-        const user = document.getElementById('user')
-        const password = document.getElementById('password')
+        const user = document.getElementById('user');
+        const span = document.getElementById('span');
+        const password = document.getElementById('password');
+
         const register = async () => {
             const result = await fetch(`/api/login`, {
                 method: 'POST',
@@ -38,6 +41,11 @@
             });
             const data = await result.json();
             console.log(data)
+            if (data.status == 'string error') span.textContent = '4 o mas letras y numeros.'
+            else if (data.status == 'user undefined') span.textContent = 'El usuario no se encontro.'
+            else if (data.status == 'password undefined') span.textContent = 'La contraseña no es correcta.'
+            else if (data.status === true) window.location.href = '/payment'
+            else span.textContent = 'Ups... hubo un error, notificalo.'
         }
         document.getElementById('form').addEventListener('submit', (event) => {
             event.preventDefault()

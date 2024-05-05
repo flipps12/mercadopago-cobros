@@ -73,6 +73,11 @@ form {
     background-color: #0D0E1C;
     border-radius: 30px;
 }
+#span {
+    margin-top: 7px;
+    text-align: center;
+    color: rgb(225, 29, 29);
+}
 
 input {
     background-color: #291234;
