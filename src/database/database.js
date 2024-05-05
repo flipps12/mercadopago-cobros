@@ -1,6 +1,6 @@
 import postgres from 'postgres';
 import bcrypt from 'bcryptjs';
-import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID, devMode } from '../config.js';
+import { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID, devMode, products } from '../config.js';
 import { ejecutar } from '../rcon/connection.js';
 
 // !comprobar seguridad
@@ -77,8 +77,9 @@ export const verifyAccount = async (user, password) => { // ?verificar credencia
 
 export const alterTable = async (ip, email, nickname, identification, plan) => { // ?modificar plan
   try {
-    const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname};`;
-
+    console.log(nickname)
+    const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname[0]};`;
+    console.log(checkName[0])
     const fechaActual = new Date();
     var i = 0;
     var expi = 0;
@@ -106,7 +107,7 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     if (devMode) ejecutar('say DevMode: altertable()')
 
 
-    const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname} ;`;
+    const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname[0]} ;`;
 
     return true;
   } catch (error) {

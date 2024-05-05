@@ -12,19 +12,20 @@
 <body>
     <nav>
         <a id="tituloNav" href="/">hola</a>
-        <ul>
+        <ul id="listaNav">
             <a href="/payment"><i class="fa-solid fa-link"></i> Comprar</a>
-            <a href="/login"><i class="fa-solid fa-link"></i> Login</a>
+            <a href="/login" id="sesion1"><i class="fa-solid fa-link"></i> Login</a>
+            <a href="/register" id="sesion2"><i class="fa-solid fa-link"></i> Register</a>
         </ul>
     </nav>
-    <div id="nickname"></div>
+    <!-- <div id="nickname"></div> -->
     <div id="containerPlanes">
         <div class="plan1 planes">
             <h4>Proximamente</h4>
             <p class="data">-------<br>------</p>
             <div class="comprarContainer">
                 <div class="precio">--- ARS</div>
-                <button class="comprar" onclick="//checkout(1)">Comprar</button>
+                <button class="comprar" onclick="window.location.href = '/payment'">Comprar</button>
             </div>
         </div>
         <div class="plan2 planes">
@@ -32,7 +33,7 @@
             <p class="data">Plan mensual <br>Servidor Anarquico</p>
             <div class="comprarContainer">
                 <div class="precio">500 ARS</div>
-                <button class="comprar" onclick="checkout(0)">Comprar</button>
+                <button class="comprar" onclick="window.location.href = '/payment'">Comprar</button>
             </div>
         </div>
         <div class="plan3 planes">
@@ -40,20 +41,25 @@
             <p class="data">-------<br>------</p>
             <div class="comprarContainer">
                 <div class="precio">--- ARS</div>
-                <button class="comprar" onclick="//checkout(2)">Comprar</button>
+                <button class="comprar" onclick="window.location.href = '/payment'">Comprar</button>
             </div>
         </div>
     </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script> <!-- AÑADIR DATOS DE CUENTA -->
         const nickname = document.getElementById('nickname');
+        const sesion1 = document.getElementById('sesion1');
+        const sesion2 = document.getElementById('sesion2');
 
         const protectedApi = async () => {
             const result = await fetch(`/api/protected`);
             const data = await result.json();
             //console.log(data.nickname)
             if (data.nickname) {
-                nickname.textContent = data.nickname;
+                //nickname.textContent = data.nickname;
+                sesion1.innerHTML = data.nickname;
+                sesion1.removeAttribute('href')
+                sesion2.remove();
             } else {
                 console.error('Nickname no encontrado en la respuesta');
             }

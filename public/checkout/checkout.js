@@ -4,13 +4,16 @@ const comprasDiv = document.getElementById('compras');
 
 const protected = async () => {
     const resultProtected = await fetch(`/api/protected`);
+    console.log(resultProtected, 'a')
+    if (resultProtected.statusText == "OK") {
+        window.location.href = '/login'
+        console.error('Nickname no encontrado en la respuesta');
+        return
+    }
     const data = await resultProtected.json();
     //console.log(data.nickname)
     if (data.nickname) {
         nickname.textContent = data.nickname;
-    } else {
-        window.location = '/'
-        console.error('Nickname no encontrado en la respuesta');
     };
     return data;
 };

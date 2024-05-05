@@ -51,7 +51,7 @@ export const process_webhook = async (result) => {
     const email = payer.email;
     const dni = payer.identification.number;
 
-    const status = alterTable(ip, email, external_reference, dni, description);
+    const status = alterTable(ip, email, external_reference.split(','), dni, description);
     console.log(await status)
     if (devMode) ejecutar('say DevMode: process_webhook()')
     if (await status) {

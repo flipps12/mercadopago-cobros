@@ -22,9 +22,9 @@ export const createOrder = async (req, res) => {
             failure: `${HOST}/failure`,
         },
         notification_url: `${NOT}/webhook`,
-        external_reference: body.nickname,
+        external_reference: `${body.nickname},${products[req.params.id][0].title}`, // ? mandar el producto, para uso futuro 
     };
-    //console.log('payment.js', bodyPayment.external_reference, body.nickname)
+    //console.log(products[req.params.id][0].title)
     const result = await preference.create({ body: bodyPayment }).catch(console.log);
     if (devMode) ejecutar('say DevMode: createOder()')
     res.send(result);
