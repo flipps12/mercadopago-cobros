@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import paymentRouter from './routes/payment.routes.js' 
 import sesionRouter from './routes/sesion.routes.js' 
 import indexRouter from './routes/index.routes.js' 
+import adminRouter from './routes/admin.routes.js'
 import { PORT } from './config.js'
 import path  from  'path';
 import bodyParser from 'body-parser';
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(paymentRouter);
 app.use(sesionRouter);
 app.use(indexRouter);
+app.use(adminRouter)
 
 app.listen(PORT,()=>{
     console.log('Server on port: ', PORT);

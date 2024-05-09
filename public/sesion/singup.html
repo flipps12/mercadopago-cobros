@@ -45,8 +45,9 @@
             console.log(data)
             if (data.status == 'string error') span.textContent = '4 o mas letras y numeros.'
             else if (data.status == 'registered') span.textContent = 'El usuario o el nickname ya existe, prueba con otro.'
-            else if (data.status === true) span.textContent = 'Ya estas registrado!'
-            else span.textContent = 'Ups... hubo un error, notificalo.'
+            else if (data.status === true) { 
+                span.textContent = 'Ya estas registrado!, ahora inicia sesion.'
+            } else span.textContent = 'Ups... hubo un error, notificalo.'
         }
         document.getElementById('form').addEventListener('submit', (event) => {
             event.preventDefault()

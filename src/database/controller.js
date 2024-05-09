@@ -99,7 +99,7 @@ export const viewPlan = async (req, res) => {
 };
 
 export const apiProtected = (req, res) => {
-    res.send(req.user);
+    res.send(req.user)
 };
 
 

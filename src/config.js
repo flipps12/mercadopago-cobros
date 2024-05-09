@@ -35,3 +35,6 @@ export const products = [
 
 // !dev options
 export const devMode = process.env.DEVMODE
+
+// !admin options
+export const admins = ['Flipps12']

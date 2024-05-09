@@ -5,7 +5,7 @@ const comprasDiv = document.getElementById('compras');
 const protected = async () => {
     const resultProtected = await fetch(`/api/protected`);
     console.log(resultProtected, 'a')
-    if (resultProtected.statusText == "OK") {
+    if (resultProtected.statusText !== "OK") {
         window.location.href = '/login'
         console.error('Nickname no encontrado en la respuesta');
         return
@@ -68,7 +68,7 @@ const compras = async () => {
         //     button.setAttribute('onclick', `checkout(${data[i][0].id})`);
         //     button.setAttribute('class', 'payButton');
         name.textContent = 'Plan: ' + data.data[0].plan[i].plan;
-        status.textContent = exp > hoy ? 'En uso' : 'Expirado'
+        status.textContent = exp > hoy ? 'Estado: En uso' : 'Estado: Expirado'
         //     name.setAttribute('class', 'payTitle');
         expiracion.textContent = `Exp: ${exp.getDate()}/${exp.getMonth() + 1}/${exp.getFullYear()}`;
         //     precio.setAttribute('class', 'payPrecio');
