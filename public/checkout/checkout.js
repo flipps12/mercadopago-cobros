@@ -6,7 +6,8 @@ const protected = async () => {
     const resultProtected = await fetch(`/api/protected`);
     console.log(resultProtected, 'a')
     if (resultProtected.statusText !== "OK") {
-        window.location.href = '/login'
+        //window.location.href = '/login'
+        console.log(resultProtected.statusText)
         console.error('Nickname no encontrado en la respuesta');
         return
     }
