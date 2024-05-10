@@ -40,7 +40,7 @@ export const reciveWebhook = async (req, res) => {
                 'Authorization': `Bearer ${client.accessToken}`
             }
         });
-        
+
         if (response.ok) {
             const data = await response.json();
             if (data.status === 'approved') {
