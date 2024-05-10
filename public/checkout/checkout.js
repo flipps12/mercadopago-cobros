@@ -8,7 +8,7 @@ const protected = async () => {
     if (resultProtected.statusText !== "OK") {
         //window.location.href = '/login'
         console.log(resultProtected.statusText)
-        console.error('Nickname no encontrado en la respuesta');
+        console.log('Nickname no encontrado en la respuesta');
         return
     }
     const data = await resultProtected.json();
