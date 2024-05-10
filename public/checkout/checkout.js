@@ -12,7 +12,7 @@ const protected = async () => {
         return
     }
     const data = await resultProtected.json();
-    //console.log(data.nickname)
+    console.log(data.nickname)
     if (data.nickname) {
         nickname.textContent = data.nickname;
     };
