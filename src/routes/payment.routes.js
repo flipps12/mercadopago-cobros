@@ -19,7 +19,7 @@ router.post('/process_payment/:id', createOrder);
 
 router.get('/succes', (req, res) => {
     res.send('succes');
-});
+}); // ! ehhhh verificare q anda mal, etc
 router.get('/failure', (req, res) => {
     res.send('failure');
 });

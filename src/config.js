@@ -16,7 +16,7 @@ export const products = [
     [
         {
             id: 0,
-            title: 'basic server',
+            title: 'Basic server',
             unit_price: 500,
             quantity: 1,
             currency_id: 'ARS',
@@ -25,7 +25,7 @@ export const products = [
     [
         {
             id: 1,
-            title: 'proximamente',
+            title: 'Proximamente',
             unit_price: 700,
             quantity: 1,
             currency_id: 'ARS',

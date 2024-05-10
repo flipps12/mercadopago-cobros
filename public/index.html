@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bepis Gvng</title>
     <script src="https://kit.fontawesome.com/3af50be71a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
@@ -12,7 +12,7 @@
 
 <body>
     <nav>
-        <a id="tituloNav" href="/">hola</a>
+        <a id="tituloNav" href="/">Bepis Gvng</a>
         <ul id="listaNav">
             <a href="/payment"><i class="fa-solid fa-link"></i> Comprar</a>
             <a href="/login" id="sesion1"><i class="fa-solid fa-link"></i> Login</a>
@@ -20,6 +20,33 @@
         </ul>
     </nav>
     <!-- <div id="nickname"></div> -->
+    <div id="carousel-container">
+        <div id="titulos-container">
+            <h1 id="titulo">Bienvenido al Server.</h1>
+            <p id="parrafo">Bienvenido al servidor de la BPG
+                contamos con actualmente <> jugadores.<br>Esperamos que te unas!!
+            </p>
+        </div>
+        <main class="carousel-container">
+            <div class="carousel">
+                <div class="item active">
+                    <img src="./assets/img-mc/2024-05-09_19.28.07.png" alt="Image 1" />
+                    <!-- <p class="caption">Caption for Image 1</p> -->
+                </div>
+                <div class="item">
+                    <img src="./assets/img-mc/2024-05-09_19.36.19.png" alt="Image 2" />
+                    <!-- <p class="caption">Caption for Image 2</p> -->
+                </div>
+                <div class="item">
+                    <img src="./assets/img-mc/2024-05-09_19.59.58.png" alt="Image 3" />
+                    <!-- <p class="caption">Caption for Image 3</p> -->
+                </div>
+            </div>
+            <button class="btn prev"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="btn next"><i class="fa-solid fa-arrow-right"></i></button>
+            <div class="dots"></div>
+        </main>
+    </div>
     <div id="containerPlanes">
         <div class="plan1 planes">
             <h4>Proximamente</h4>
@@ -80,6 +107,58 @@
             console.log(data)
             window.location.href = data.init_point
         }
+        document.addEventListener("DOMContentLoaded", function () {
+            let carousel = document.querySelector(".carousel");
+            let items = carousel.querySelectorAll(".item");
+            let dotsContainer = document.querySelector(".dots");
+
+            // Insert dots into the DOM
+            items.forEach((_, index) => {
+                let dot = document.createElement("span");
+                dot.classList.add("dot");
+                if (index === 0) dot.classList.add("active");
+                dot.dataset.index = index;
+                dotsContainer.appendChild(dot);
+            });
+
+            let dots = document.querySelectorAll(".dot");
+
+            // Function to show a specific item
+            function showItem(index) {
+                items.forEach((item, idx) => {
+                    item.classList.remove("active");
+                    dots[idx].classList.remove("active");
+                    if (idx === index) {
+                        item.classList.add("active");
+                        dots[idx].classList.add("active");
+                    }
+                });
+            }
+
+            // Event listeners for buttons
+            document.querySelector(".prev").addEventListener("click", () => {
+                let index = [...items].findIndex((item) =>
+                    item.classList.contains("active")
+                );
+                showItem((index - 1 + items.length) % items.length);
+            });
+
+            document.querySelector(".next").addEventListener("click", () => {
+                let index = [...items].findIndex((item) =>
+                    item.classList.contains("active")
+                );
+                showItem((index + 1) % items.length);
+            });
+
+            // Event listeners for dots
+            dots.forEach((dot) => {
+                dot.addEventListener("click", () => {
+                    let index = parseInt(dot.dataset.index);
+                    showItem(index);
+                });
+            });
+        });
+
     </script>
 </body>
 
