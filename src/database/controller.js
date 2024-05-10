@@ -51,14 +51,18 @@ export const process_webhook = async (result) => {
     const email = payer.email;
     const dni = payer.identification.number;
 
-    const status = alterTable(ip, email, external_reference.split(','), dni, description);
-    console.log(await status)
-    if (devMode) ejecutar('say DevMode: process_webhook()')
-    if (await status) {
-        const addWhitelistResult = addUserWhiteList(external_reference);
-        console.log(await addWhitelistResult);
-    } else {
-        console.log('hubo un error');
+    try {
+        const status = alterTable(ip, email, external_reference.split(','), dni, description);
+        console.log(await status)
+        if (devMode) ejecutar('say DevMode: process_webhook()')
+        if (await status) {
+            const addWhitelistResult = addUserWhiteList(external_reference);
+            console.log(await addWhitelistResult);
+        } else {
+            console.log('hubo un error');
+        }
+    } catch (error) {
+        console.error('process_webhook', error)
     }
 }
 
