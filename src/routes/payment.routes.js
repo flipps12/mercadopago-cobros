@@ -13,7 +13,7 @@ router.get('/payment', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'checkout', 'checkout.html'));
 });
 
-router.get('/api/products', viewPlanes); // ?mostrar planes disponibles
+router.get('/api/products', viewPlanes); // ?mostrar planes disponibles.
 
 router.post('/process_payment/:id', createOrder);
 
