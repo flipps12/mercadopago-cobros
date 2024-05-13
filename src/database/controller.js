@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { JWT, devMode } from "../config.js";
 import { ejecutar, viewWhiteList, addUserWhiteList, deleteUserWhiteList } from "../rcon/connection.js";
 
+
 const verifyAllAccounts = async () => {
     try {
         ejecutar('say Actulizando Whitelist...');
@@ -108,5 +109,5 @@ export const apiProtected = (req, res) => {
 
 
 
-setInterval(verifyAllAccounts, 60 * 60 * 1000); // Verificar Whitelsit cada 1 horas
+setInterval(verifyAllAccounts, 30 * 60 * 1000); // Verificar Whitelsit cada 1 horas
 verifyAllAccounts();// 
