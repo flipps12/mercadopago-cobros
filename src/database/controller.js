@@ -31,8 +31,8 @@ const verifyAllAccounts = async () => {
         };
         var fueraDeWhitelist = users.filter(element => !whitelistUsers.includes(element)); // ? Usuarios con plan pagado pero fuera de whitelist
         var dentroDeWhitelist = whitelistUsers.filter(element => !users.includes(element)); // ! Estos usuarios, no pagaron pero esta dentro de la whitelist. (utilizando bugs)
-        dentroDeWhitelist.some(element => deleteUserWhiteList(element));
-        fueraDeWhitelist.some(element => addUserWhiteList(element));
+        //dentroDeWhitelist.some(element => deleteUserWhiteList(element));
+        //fueraDeWhitelist.some(element => addUserWhiteList(element));
         console.log(fueraDeWhitelist, dentroDeWhitelist)
     } catch (error) {
         ejecutar(`say ERROR Actulizando Whitelist, alertar al staff. ${error}`);
