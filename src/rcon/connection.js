@@ -21,13 +21,13 @@ export const viewWhiteList = async (data) => {
 };
 
 export const addUserWhiteList = async (nickname) => { // ! agregar seguridad adicional, no quiero ratones
-    ejecutar(`say ${nickname} a comprado un mes en este server.`);
+    //ejecutar(`say ${nickname} a comprado un mes en este server.`);
     return await ejecutar(`whitelist add ${nickname}`);
 };
 
 export const deleteUserWhiteList = async (nickname) => { // ! capaz algo de seguridad va, ( se prefiere que puedan explotar esta funcion a que otras )
-    ejecutar(`say ${nickname} no pago, adios.`);
-    ejecutar(`kick ${nickname}`); //? por si esta conectado
+    //ejecutar(`say ${nickname} no pago, adios.`);
+    //ejecutar(`kick ${nickname}`); //? por si esta conectado
     return await ejecutar(`whitelist remove ${nickname}`);
 };
 

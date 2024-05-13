@@ -12,7 +12,7 @@ const verifyAllAccounts = async () => {
         var users = [];
         const whitelistUsersResult = await viewWhiteList();
         const whitelistUsers = whitelistUsersResult.split(': ')[1].split(', ');
-        ejecutar(`say devmode ${whitelistUsersResult}`)
+        //ejecutar(`say devmode ${whitelistUsersResult}`)
         const planes = await viewPlansDB();
         var plan, plan2 = 0;
         for (plan in planes) {
@@ -31,8 +31,8 @@ const verifyAllAccounts = async () => {
         };
         var fueraDeWhitelist = users.filter(element => !whitelistUsers.includes(element)); // ? Usuarios con plan pagado pero fuera de whitelist
         var dentroDeWhitelist = whitelistUsers.filter(element => !users.includes(element)); // ! Estos usuarios, no pagaron pero esta dentro de la whitelist. (utilizando bugs)
-        fueraDeWhitelist.some(element => addUserWhiteList(element));
         dentroDeWhitelist.some(element => deleteUserWhiteList(element));
+        fueraDeWhitelist.some(element => addUserWhiteList(element));
         console.log(fueraDeWhitelist, dentroDeWhitelist)
     } catch (error) {
         ejecutar(`say ERROR Actulizando Whitelist, alertar al staff. ${error}`);
@@ -55,7 +55,7 @@ export const process_webhook = async (result) => {
     try {
         const status = alterTable(ip, email, external_reference.split(','), dni, description);
         console.log(await status)
-        if (devMode) ejecutar('say DevMode: process_webhook()')
+        //if (devMode) ejecutar('say DevMode: process_webhook()')
         if (await status) {
             const addWhitelistResult = addUserWhiteList(external_reference);
             console.log(await addWhitelistResult);
@@ -63,6 +63,7 @@ export const process_webhook = async (result) => {
             console.log('hubo un error');
         }
     } catch (error) {
+        ejecutar('say hubo un error en "process_webhook"')
         console.error('process_webhook', error)
     }
 }

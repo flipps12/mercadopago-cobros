@@ -49,7 +49,7 @@ export const reciveWebhook = async (req, res) => {
             };
         };
 
-        if (devMode) ejecutar('say DevMode: reciveWebhook()')
+        //if (devMode) ejecutar('say DevMode: reciveWebhook()')
 
         res.sendStatus(200);
     } catch (error) {
