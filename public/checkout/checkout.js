@@ -12,7 +12,7 @@ const protected = async () => {
     if (data.nickname) {
         nickname.textContent = data.nickname;
     } else {
-        //window.location.href = '/login'
+        window.location.href = '/login'
         console.log('Nickname no encontrado en la respuesta');
     }
     return data;
