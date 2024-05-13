@@ -5,7 +5,7 @@ export const ejecutar = async (comand) => { // ?Ejecutar comando por rcon
     try {
         const client = await Rcon.connect({
             host: hostMC,
-            por: portMC,
+            port: portMC,
             password: passwordMC
         });
         const result = await client.send(comand);
@@ -30,7 +30,6 @@ export const deleteUserWhiteList = async (nickname) => { // ! capaz algo de segu
     ejecutar(`kick ${nickname}`); //? por si esta conectado
     return await ejecutar(`whitelist remove ${nickname}`);
 };
-
 
 // export const verifyWhiteList = async () => {
 //     //

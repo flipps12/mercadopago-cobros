@@ -108,5 +108,5 @@ export const apiProtected = (req, res) => {
 
 
 
-setInterval(verifyAllAccounts, 4 * 60 * 60 * 1000); // Verificar Whitelsit cada 4 horas
+setInterval(verifyAllAccounts, 60 * 60 * 1000); // Verificar Whitelsit cada 1 horas
 verifyAllAccounts();// 
