@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bepis Gvng</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" id="user">
+        <input type="submit" value="Agregar Usuario">
+    </form>
+    <script>
+        const userData = document.getElementById('user')
+
+        const register = async () => {
+            const result = await fetch(`/admin/adduser`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({ user: userData.value }),
+            });
+            console.log(userData.value)
+            const data = await result.json();
+            console.log(data)
+        }
+        document.getElementById('form').addEventListener('submit', (event) => {
+            event.preventDefault()
+            register()
+        })
+    </script>
+</body>
+</html>
