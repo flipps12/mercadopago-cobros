@@ -29,7 +29,17 @@ router.post('/admin/adduser', authMiddleware, async (req, res) => {
         res.send('No sos un admin, raja de aca');
         return
     };
-    res.send(await process_webhook({ external_reference: [req.body.user, 'Basic server']}))
+    res.send(await process_webhook({
+        external_reference: `${req.body.user},Basic server`,
+        additional_info: {
+            ip_address: null
+        },
+        payer: {
+            email: null,
+            identification: { number: 1234}
+        },
+        description: 'Basic Server',
+    }))
 });
 
 // ! post() ejecutar comandos en el servidor como administrador (Seguridad alta)

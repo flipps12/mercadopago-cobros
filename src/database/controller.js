@@ -57,7 +57,8 @@ export const process_webhook = async (result) => {
         console.log(await status)
         //if (devMode) ejecutar('say DevMode: process_webhook()')
         if (await status) {
-            const addWhitelistResult = addUserWhiteList(external_reference);
+            console.log(external_reference.split(','))
+            const addWhitelistResult = addUserWhiteList(external_reference.split(',')[0]);
             console.log(await addWhitelistResult);
         } else {
             console.log('hubo un error');
