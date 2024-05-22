@@ -3,9 +3,10 @@ import { TOKEN, HOST, NOT, products, devMode } from '../config.js';
 import { process_webhook } from '../database/controller.js';
 import { ejecutar } from '../rcon/connection.js';
 
+const client = new MercadoPagoConfig({ accessToken: TOKEN });
+const payment = new Payment(client);
+
 export const createOrder = async (req, res) => {
-    const client = new MercadoPagoConfig({ accessToken: TOKEN })
-    const payment = new Payment(client);
     const preference = new Preference(client);
     var { body } = req;
     
@@ -31,8 +32,6 @@ export const createOrder = async (req, res) => {
 };
 
 export const reciveWebhook = async (req, res) => {
-    const client = new MercadoPagoConfig({ accessToken: TOKEN });
-    const payment = new Payment(client);
     const paymentQuery = req.query;
     try {
         const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentQuery.id}`, {

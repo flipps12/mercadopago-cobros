@@ -83,18 +83,23 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     const fechaActual = new Date();
     var i = 0;
     var expi = 0;
-    if (checkName[0].plan !== null) {
+    if (checkName[0].plan !== null) { // ?si no tiene compras
       while (checkName[0].plan[i] !== undefined) {
-        expi = checkName[0].plan[i].exp
-        //newPlan += { i: checkName[0].plan[i] }
+        expi = checkName[0].plan[i].exp // ?agarrar la ultima expiracion
         i++
-
       }
       if (checkName[0].plan[i] == undefined && i >= 1) {
         var date = new Date(expi)
-        checkName[0].plan[i] = { exp: fechaActual.setMonth(date.getMonth() + 1), plan }
+        console.log(date)
+        date = date.setMonth(date.getMonth() + 1)
+        console.log(date)
+        var date = new Date(date)
+        //if (date.getMonth() === 0) {
+          //date.setFullYear(date.getFullYear() + 1);
+          //var date = new Date(date)
+        //}
+        checkName[0].plan[i] = { exp: date, plan }
         newPlan = checkName[0].plan
-
       }
     } else {
       var newPlan = {
@@ -104,7 +109,6 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
         }
       }
     }
-    if (devMode) ejecutar('say DevMode: altertable()')
 
 
     const result = await sql`UPDATE usuarios SET ip = ${ip}, email = ${email}, identificacion = ${identification}, plan = ${newPlan} WHERE nickname = ${nickname[0]} ;`;

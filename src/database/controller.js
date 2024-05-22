@@ -6,11 +6,12 @@ import { ejecutar, viewWhiteList, addUserWhiteList, deleteUserWhiteList } from "
 
 const verifyAllAccounts = async () => {
     try {
-        ejecutar('say Actulizando Whitelist...');
+        //ejecutar('say Actulizando Whitelist...');
         console.log('verificando whitelist')
         const fecha = new Date();
         var users = [];
         const whitelistUsersResult = await viewWhiteList();
+        if (whitelistUsersResult == undefined) return
         const whitelistUsers = whitelistUsersResult.split(': ')[1].split(', ');
         //ejecutar(`say devmode ${whitelistUsersResult}`)
         const planes = await viewPlansDB();
@@ -111,5 +112,5 @@ export const apiProtected = (req, res) => {
 
 
 
-setInterval(verifyAllAccounts, 30 * 60 * 1000); // Verificar Whitelsit cada 1 horas
-verifyAllAccounts();// 
+//setInterval(verifyAllAccounts,4 * 30 * 60 * 1000); // Verificar Whitelsit cada 1 horas
+//verifyAllAccounts();// 
