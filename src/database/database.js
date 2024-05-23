@@ -77,9 +77,7 @@ export const verifyAccount = async (user, password) => { // ?verificar credencia
 
 export const alterTable = async (ip, email, nickname, identification, plan) => { // ?modificar plan
   try {
-    console.log(nickname)
     const checkName = await sql`SELECT plan FROM usuarios WHERE nickname = ${nickname[0]};`;
-    console.log(checkName[0])
     const fechaActual = new Date();
     var i = 0;
     var expi = 0;
@@ -116,7 +114,7 @@ export const alterTable = async (ip, email, nickname, identification, plan) => {
     return true;
   } catch (error) {
     console.log(error)
-    ejecutar(`say devmode ${error}`)
+    ejecutar(`tell Flipps12 devmode ${error}`)
     return false;
   }
 };

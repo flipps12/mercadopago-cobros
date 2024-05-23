@@ -16,7 +16,7 @@ export const ejecutar = async (comand) => { // ?Ejecutar comando por rcon
     };
 };
 
-export const viewWhiteList = async (data) => {
+export const viewWhiteList = async () => {
     return await ejecutar('whitelist list');
 };
 
@@ -30,7 +30,3 @@ export const deleteUserWhiteList = async (nickname) => { // ! capaz algo de segu
     //ejecutar(`kick ${nickname}`); //? por si esta conectado
     return await ejecutar(`whitelist remove ${nickname}`);
 };
-
-// export const verifyWhiteList = async () => {
-//     //
-// }

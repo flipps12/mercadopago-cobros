@@ -1,6 +1,8 @@
 const nickname = document.getElementById('nickname');
 const planContainer = document.getElementById('planContainer');
 const comprasDiv = document.getElementById('compras');
+const listPlayer = document.getElementById('listPlayer');
+const whiteListPlayer = document.getElementById('whiteListPlayer');
 
 const protected = async () => {
     const resultProtected = await fetch(`/api/protected`);
@@ -93,6 +95,15 @@ const checkout = async (id) => {
     window.location.href = data.init_point
 }
 
+const statusPlayer = async () => {
+    const result = await fetch(`/api/dataplayer`);
+    const data = await result.json();
+    console.log(data)
+    whiteListPlayer.textContent = `Whitelist: ${data[1] ? 'Dentro' : 'Fuera'}`
+    listPlayer.textContent = `En server: ${data[0] ? 'Online' : 'Offline'}`
+}
+
+statusPlayer();
 protected();
 products();
 compras();

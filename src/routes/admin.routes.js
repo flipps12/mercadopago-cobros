@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { getWhitelist } from '../database/controller.js'
 import { authMiddleware } from './sesion.routes.js';
 import { viewWhiteList } from '../rcon/connection.js';
 import { viewPlansDB } from '../database/database.js';
@@ -36,14 +35,29 @@ router.post('/admin/adduser', authMiddleware, async (req, res) => {
         },
         payer: {
             email: null,
-            identification: { number: 1234}
+            identification: { number: 1234 }
         },
         description: 'Basic Server',
     }))
 });
 
+
+router.get('/admin/db', authMiddleware, async (req, res) => {
+    console.log(req.body)
+    if (!req.user.isAdmin) {
+        res.send('No sos un admin, raja de aca');
+        return
+    };
+
+    res.send(await viewPlansDB());
+});
+
+router.get('/admin/whitelist', async (req, res) => {
+    const whitelist = await viewWhiteList()
+    res.send(whitelist.split(': '))
+});
+
 // ! post() ejecutar comandos en el servidor como administrador (Seguridad alta)
-// res.send(await viewWhiteList() + await viewPlansDB())
 // ! get() Mirar lista de jugfadores conectados, en whitelist, pagos, etc
 
 export default router

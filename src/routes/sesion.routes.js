@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import path from 'path';
 import { createAccountPost, verifyAccountPost, apiProtected, viewPlan } from '../database/controller.js';
+import { ejecutar } from '../rcon/connection.js';
 import jwt from 'jsonwebtoken';
 import { JWT } from "../config.js";
 
@@ -32,9 +33,14 @@ router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'sesion', 'login.html'));
 })
 
-// router.get('/ruta-protegida', authMiddleware, (req, res) => {
-//     res.send('Acceso concedido a la información protegida.'); //! deprecated
-// });
+router.get('/api/dataplayer', authMiddleware, async (req, res) => {
+  const { nickname } = req.user;
+  const list = await ejecutar('list');
+  const players = list.split(': ')[1].split(', ');
+  const whitelist = await ejecutar('whitelist list');
+  const playersWhitelist = whitelist.split(': ')[1].split(', ');
+  res.send([players.includes(nickname), playersWhitelist.includes(nickname)]);
+})
 
 router.post('/api/register', createAccountPost)
 

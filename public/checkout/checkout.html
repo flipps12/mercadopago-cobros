@@ -20,7 +20,14 @@
             </a>
         </ul>
     </nav>
-    <div id="planContainer"></div>
+    <div id="planContainer">
+        <div class="payContainer">
+            <div class="payTitle">Tu estado:</div>
+            <div id="whiteListPlayer" class="payPrecio">Cargando...</div>
+            <div id="listPlayer" class="payTitle">Cargando...</div>
+            <button onclick="statusPlayer()" class="payButton">Regargar</button>
+        </div>
+    </div>
     <div id="compras"></div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script src="./checkout/checkout.js"></script>

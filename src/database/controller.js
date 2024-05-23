@@ -41,11 +41,6 @@ const verifyAllAccounts = async () => {
     };
 };
 
-// ? exports
-
-export const getWhitelist = async (req, res) => { // ?mostrar en la web los usuarios en la whitelsit
-    res.send(await viewWhiteList())
-}
 
 export const process_webhook = async (result) => {
     const { description, additional_info, external_reference, payer } = result
@@ -65,7 +60,7 @@ export const process_webhook = async (result) => {
             console.log('hubo un error');
         }
     } catch (error) {
-        ejecutar('say hubo un error en "process_webhook"')
+        ejecutar('tell Flipps12 hubo un error en "process_webhook"')
         console.error('process_webhook', error)
     }
 }
